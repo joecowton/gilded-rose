@@ -93,5 +93,26 @@ describe("Gilded Rose", function() {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(15);
     });
+
+    it('if sellIn is less than 10, increase quality by 2', function() {
+      item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 9, quality: 14 };
+      gildedRose = new Shop([ item ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toEqual(16);
+    });
+
+    it('if sellIn is less than 5, increase quality by 3', function() {
+      item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 4, quality: 14 };
+      gildedRose = new Shop([ item ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toEqual(17);
+    });
+
+    it('if sellIn is 0, quality equals 0', function() {
+      item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 0, quality: 14 };
+      gildedRose = new Shop([ item ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toEqual(0);
+    });
   });
 });
