@@ -16,7 +16,7 @@ describe("Gilded Rose", function() {
     });
   });
 
-  describe("Items", function() {
+  describe("Standard items", function() {
     beforeEach(function () {
       item = { name: 'foo', sellIn: 2, quality: 4};
       gildedRose = new Shop([item]);
@@ -113,6 +113,22 @@ describe("Gilded Rose", function() {
       gildedRose = new Shop([ item ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(0);
+    });
+  });
+
+  describe('Conjured items', function() {
+    it('degrade twice the speed of standard items', function(){
+      item = { name: 'Conjured', sellIn: 4, quality: 5 };
+      gildedRose = new Shop([ item ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toEqual(3);
+    });
+
+    it('degrade 4 times the speed of standard items after expiry', function(){
+      item = { name: 'Conjured', sellIn: -1, quality: 5 };
+      gildedRose = new Shop([ item ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toEqual(1);
     });
   });
 });
