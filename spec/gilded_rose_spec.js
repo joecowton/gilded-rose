@@ -79,20 +79,14 @@ describe("Gilded Rose", function() {
   });
 
   describe('Backstage passes', function() {
-    beforeEach(function (){
-      item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 11, quality: 14 };
+
+    it('should increase in quality on update', function() {
+      item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 12, quality: 14 };
       gildedRose = new Shop([ item ]);
-    });
-
-    it('should increase in quality on update', function() {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(15);
     });
 
-    it('should increase in quality on update', function() {
-      gildedRose.updateQuality();
-      expect(gildedRose.items[0].quality).toEqual(15);
-    });
 
     it('if sellIn is less than 10, increase quality by 2', function() {
       item = { name:'Backstage passes to a TAFKAL80ETC concert', sellIn: 9, quality: 14 };
@@ -118,7 +112,7 @@ describe("Gilded Rose", function() {
 
   describe('Conjured items', function() {
     it('degrade twice the speed of standard items', function(){
-      item = { name: 'Conjured', sellIn: 4, quality: 5 };
+      item = { name: 'Conjured', sellIn: 5, quality: 5 };
       gildedRose = new Shop([ item ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(3);

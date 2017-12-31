@@ -11,44 +11,36 @@ class Shop {
     this.items = items;
   }
 
-  updateSellIn() {
+  updateQuality() {
+
+    this._updateSellIn();
+
+    for(var i = 0; i < this.items.length; i++)
+      if (this._isAgedBrie(this.items[i])){
+        this._updateAgedBrie(this.items[i]);
+      }
+      else if (this._isConjured(this.items[i])){
+        this._updateConjured(this.items[i]);
+      }
+      else if (this._isBackstagePass(this.items[i])){
+        this._updateBackstagePass(this.items[i]);
+      }
+      else if (this._isSulfaras(this.items[i])){
+        this._updateSulfaras(this.items[i])
+      }
+      else {
+        this._updateStandard(this.items[i])
+      }
+  }
+
+  _updateSellIn() {
     for (var i = 0; i < this.items.length; i++)
       if(this.items[i].name !== 'Sulfuras, Hand of Ragnaros') {
         this.items[i].sellIn -- ;
       }
   }
 
-  isNotAgedBrie(item) {
-    return item.name != 'Aged Brie'
-  }
-
-  isNotSulfaras(item) {
-    return item.name != 'Sulfuras, Hand of Ragnaros'
-  }
-
-  isNotBackstagePass(item) {
-    return item.name != 'Backstage passes to a TAFKAL80ETC concert'
-  }
-
-  isAgedBrie(item){
-    return item.name == 'Aged Brie'
-  }
-
-  isSulfaras(item) {
-    return item.name == 'Sulfuras, Hand of Ragnaros'
-  }
-
-  updateStandard(item) {
-    if (item.sellIn < 0) {
-      item.quality -= 2;
-    } else if (item.quality <= 0) {
-      item.quality = 0;
-    } else {
-      item.quality--;
-    }
-  }
-
-  updateAgedBrie(item) {
+  _updateAgedBrie(item) {
     if (item.quality >= 50) {
       item.quality = 50;
     } else if (item.sellIn < 0) {
@@ -58,17 +50,21 @@ class Shop {
     }
   }
 
-  updateConjured(item) {
+  _updateConjured(item) {
     if (item.sellIn < 0) {
       item.quality -= 4;
     } else if (item.quality <= 0) {
       item.quality = 0;
     } else {
-      item.quality-2;
+      item.quality-=2;
     }
   }
 
-  updateBackstagePass(item){
+  _updateSulfaras(items) {
+
+  }
+
+  _updateBackstagePass(item){
     if (item.quality >= 50) {
       item.quality = 50;
     } else if (item.sellIn > 10) {
@@ -82,58 +78,29 @@ class Shop {
     }
   }
 
-
-  
-
-
-
-
-
-  updateQuality() {
-    for (var i = 0; i < this.items.length; i++) {
-      if (this.isNotAgedBrie(this.items[i]) && this.isNotBackstagePass(this.items[i])) {
-        if (this.items[i].quality > 0) {
-          if (this.isNotSulfaras(this.items[i])) {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
-        }
-      }
-      this.updateSellIn()
-      if (this.items[i].sellIn < 0) {
-        if (this.isNotAgedBrie(this.items[i])) {
-          if (this.isNotBackstagePass(this.items[i])) {
-            if (this.items[i].quality > 0) {
-              if (this.isNotSulfaras(this.items[i])) {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
-        }
-      }
+  _updateStandard(item) {
+    if (item.sellIn < 0) {
+      item.quality -= 2;
+    } else if (item.quality <= 0) {
+      item.quality = 0;
+    } else {
+      item.quality--;
     }
+  }
 
-    return this.items;
+  _isBackstagePass(item) {
+    return item.name == 'Backstage passes to a TAFKAL80ETC concert'
+  }
+
+  _isAgedBrie(item){
+    return item.name == 'Aged Brie'
+  }
+
+  _isSulfaras(item) {
+    return item.name == 'Sulfuras, Hand of Ragnaros'
+  }
+
+  _isConjured(item) {
+    return item.name == 'Conjured'
   }
 }
