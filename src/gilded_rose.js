@@ -30,6 +30,65 @@ class Shop {
     return item.name != 'Backstage passes to a TAFKAL80ETC concert'
   }
 
+  isAgedBrie(item){
+    return item.name == 'Aged Brie'
+  }
+
+  isSulfaras(item) {
+    return item.name == 'Sulfuras, Hand of Ragnaros'
+  }
+
+  updateStandard(item) {
+    if (item.sellIn < 0) {
+      item.quality -= 2;
+    } else if (item.quality <= 0) {
+      item.quality = 0;
+    } else {
+      item.quality--;
+    }
+  }
+
+  updateAgedBrie(item) {
+    if (item.quality >= 50) {
+      item.quality = 50;
+    } else if (item.sellIn < 0) {
+      item.quality += 2;
+    } else {
+      item.quality++;
+    }
+  }
+
+  updateConjured(item) {
+    if (item.sellIn < 0) {
+      item.quality -= 4;
+    } else if (item.quality <= 0) {
+      item.quality = 0;
+    } else {
+      item.quality-2;
+    }
+  }
+
+  updateBackstagePass(item){
+    if (item.quality >= 50) {
+      item.quality = 50;
+    } else if (item.sellIn > 10) {
+      item.quality +=1 ;
+    } else if (item.sellIn > 5) {
+      item.quality += 2;
+    } else if (item.sellIn > 0) {
+      item.quality += 3;
+    } else {
+      item.quality = 0;
+    }
+  }
+
+
+  
+
+
+
+
+
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       if (this.isNotAgedBrie(this.items[i]) && this.isNotBackstagePass(this.items[i])) {
