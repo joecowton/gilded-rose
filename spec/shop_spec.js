@@ -1,4 +1,4 @@
-describe("Gilded Rose", function() {
+describe("Shop", function() {
 
   describe("Quality limitations", function() {
     it('No item quality can be negative', function() {
