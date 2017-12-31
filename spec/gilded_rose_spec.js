@@ -17,7 +17,7 @@ describe("Gilded Rose", function() {
   });
 
   describe("Items", function() {
-    beforeEach(function (){
+    beforeEach(function () {
       item = { name: 'foo', sellIn: 2, quality: 4};
       gildedRose = new Shop([item]);
     });
@@ -26,7 +26,7 @@ describe("Gilded Rose", function() {
       expect(gildedRose.items[0]).toEqual({ name: 'foo', sellIn: 2, quality: 4})
     });
 
-    it("update quality should decrease quality by 1", function(){
+    it("update quality should decrease quality by 1", function() {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(3);
     });
@@ -42,6 +42,24 @@ describe("Gilded Rose", function() {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toEqual(2)
     });
+  });
+
+  describe('Sulfuras', function() {
+    beforeEach(function (){
+      item = { name: 'Sulfuras, Hand of Ragnaros', sellIn: 0, quality: 80 }
+      gildedRose = new Shop( [ item ] )
+    });
+
+    it('Item quality should not change', function (){
+      gildedRose.updateQuality()
+      expect(gildedRose.items[0].quality).toEqual(80)
+    });
+
+    it('Item sellIn should not change', function (){
+      gildedRose.updateQuality()
+      expect(gildedRose.items[0].sellIn).toEqual(0)
+    });
+
   });
 
 
