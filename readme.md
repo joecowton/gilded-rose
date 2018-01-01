@@ -18,4 +18,4 @@ A JavaScript refactor of the 'Gilded Rose' kata.
 
 open index.html
 
-enter irb and create new shop
+enter irb and create new shop to begin
